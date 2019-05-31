@@ -2,25 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Grid extends React.Component {
+class Grid extends React.Component { 
     render(props) {
-        const width = this.props.settings.columns * 16
 
         var rowsArr = [];
-        var boxClass = "";
         
-		for (var i = 0; i < this.props.rows; i++) {
-			for (var j = 0; j < this.props.cols; j++) {
-				let boxId = i + "_" + j;
+		for (var i = 0; i < this.props.settings.rows; i++) {
+			for (var j = 0; j < this.props.settings.columns; j++) {
 
-				boxClass = this.props.gridFull[i][j] ? "box on" : "box off";
 				rowsArr.push(
 					<Cell
-						boxClass={boxClass}
-						key={boxId}
-						boxId={boxId}
+                        className="cell"
 						row={i}
-						col={j}
+						column={j}
+                        width="16"
+                        color="blue"
 						selectBox={this.props.selectBox}
 					/>
 				);
@@ -28,7 +24,7 @@ class Grid extends React.Component {
 		}
 
 		return (
-			<div className="grid" style={{width: width}}>
+			<div className="grid">
 				{rowsArr}
 			</div>
 		);
@@ -38,8 +34,7 @@ class Grid extends React.Component {
 class Cell extends React.Component {
     render(props) {
         return (
-            <div style={{width: this.props.width, backgroundcolor: this.props.color}} onClick={this.props.whenClicked}>
-            </div>
+            <div className="cell" style={{backgroundColor: this.props.color}} />
         )
     }
 }
@@ -65,6 +60,7 @@ class Main extends React.Component {
                 <h1>Lines and Boxes</h1>
                 <h2>Round {this.state.round}</h2>
                 <Grid settings={this.props.settings}/>
+                
             </div>
         )
     }
